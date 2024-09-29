@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category.name }} - Epin.az</title>
+</head>
+<body>
+    <h1>{{ category.name }}</h1>
+    <h2>Məhsullar:</h2>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.title }} - {{ product.price }} AZN</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epin.az - Əlaqə</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Epin.az</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Ana Səhifə</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_list' %}">Kateqoriyalar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart' %}">Səbət</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hesabım</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Əlaqə</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Əlaqə Forması -->
+    <div class="container mt-4">
+        <h1>Bizimlə Əlaqə</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="name">Adınız:</label>
+                <input type="text" name="name" class="form-control" id="name" placeholder="Adınızı daxil edin" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Emailinizi daxil edin" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Mesaj:</label>
+                <textarea name="message" class="form-control" id="message" rows="4" placeholder="Mesajınızı daxil edin" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Göndər</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Geri Dön</a>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">© 2024 Epin.az. Bütün hüquqlar qorunur.</span>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS daxil edin -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+</body> 
+</html>

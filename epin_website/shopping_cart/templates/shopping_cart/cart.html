@@ -1,0 +1,17 @@
+<h1>Your Cart</h1>
+<ul>
+    {% for item in products %}
+        <li>{{ item.product.name }} - {{ item.quantity }} x {{ item.product.price }} AZN</li>
+    {% endfor %}
+</ul>
+<p>Total Price: {{ total_price }} AZN</p>
+
+<h2>Add Product</h2>
+<ul>
+    {% for product in products %}
+        <li>
+            {{ product.name }} - {{ product.price }} AZN
+            <a href="{% url 'add_to_cart' product.id %}">Add to Cart</a>
+        </li>
+    {% endfor %}
+</ul>

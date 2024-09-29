@@ -1,0 +1,44 @@
+{% extends "test.html" %}
+
+{% block body %}
+
+<h3>Qeydiyyat</h3>
+<hr>
+
+{% if messages %}
+    <div class="container mt-4">
+        {% for message in messages %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<form method="POST">
+   {% csrf_token %}
+   <div class="form-group">
+       <label for="username">İstifadəçi Adı:</label>
+       {{ form.username }}  <!-- Formdan istifadə et -->
+   </div>
+   <div class="form-group">
+       <label for="email">E-poçt:</label>
+       {{ form.email }}  <!-- Formdan istifadə et -->
+   </div>
+   <div class="form-group">
+       <label for="password">Şifrə:</label>
+       {{ form.password }}  <!-- Formdan istifadə et -->
+   </div>
+   <div class="form-group">
+       <label for="confirm">Şifrə Təsdiqi:</label>
+       {{ form.confirm }}  <!-- Təsdiq üçün form sahəsini əlavə edin -->
+   </div>
+   <br>
+   <button type="submit" class="btn btn-danger">Qeydiyyatdan Keç</button>
+</form>
+
+{% if form.non_field_errors %}
+    <div class="alert alert-danger">
+        {{ form.non_field_errors }}
+    </div>
+{% endif %}
+
+{% endblock body %}

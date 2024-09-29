@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="az">
+<head>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <title>Epin.az</title>
+    <img src="{% static 'images/icon.png' %}" alt="Icon" width="100" height="100">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Epin.az - Ana Səhifə</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .product-card {
+            transition: transform 0.3s ease-in-out;
+        }
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        .navbar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Epin.az</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Ana Səhifə</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'product_list' %}">Mehsullar</a>
+                </li>
+                <!-- Səbət keçidi -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart' %}">Səbət</a>
+                </li>
+                {% if user.is_authenticated %} 
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Çıxış</a> 
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'register' %}">Qeydiyyat</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Giris</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Əlaqə</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    
+
+    <!-- Banner -->
+    <div class="container-fluid">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Epin.az-a Xoş Gəldiniz!</h1>
+            <p class="lead">Rəqəmsal məhsullarınızı buradan alın, kodlarınızı dərhal əldə edin!</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'product_list' %}" role="button">Daha çox öyrənin</a>
+        </div>
+    </div>
+
+    <!-- Məhsullar -->
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-4">
+                <div class="card product-card">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.title }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+                        <p class="card-text"><strong>Qiymət: </strong>{{ product.price }} AZN</p>
+                        <a href="{% url 'product_detail' product.pk %}" class="btn btn-primary">Ətraflı Bax</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container mt-4">
+        <h1>Kateqoriyalar</h1>
+        <ul>
+            {% for category in categories %}
+                <li>
+                    <a href="{% url 'category_detail' category.id %}">{{ category.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">© 2024 Epin.az. Bütün hüquqlar qorunur.</span>
+        </div>
+    </footer>
+    <img src="{% static 'path_to_your_image/image.jpg' %}" alt="Image Description">
+
+    <!-- Bootstrap JS daxil edin -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

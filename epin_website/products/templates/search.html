@@ -1,0 +1,14 @@
+<form method="get" action="{% url 'search' %}">
+    {{ form.as_p }}
+    <button type="submit">Axtar</button>
+</form>
+
+{% if results %}
+    <ul>
+        {% for product in results %}
+            <li>{{ product.title }} - {{ product.price }} AZN</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nəticə tapılmadı.</p>
+{% endif %}
