@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .  # Kök qovluq
+    container_name: web
+    restart: always
+    ports:
+      - "9000:80"  # Dışarıdan 8000 portu ile erişim
+    depends_on:
+      - redis
+      - celery_worker
+    networks:
+      - app-network
+    environment:
+      - DJANGO_SETTINGS_MODULE=epin_website.settings  # Django ayarlarını belirtin
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"  # Redis portunu dışarıya açar
+    networks:
+      - app-network
+    environment:
+      - REDIS_PASSWORD=your_redis_password  # Redis şifresi ekleyin, eğer kullanıyorsanız
+
+  celery_worker:
+    build:
+      context: .  # Kök qovluq
+      dockerfile: Dockerfile.celery  # Dockerfile.celery
+    container_name: celery_worker
+    restart: always
+    volumes:
+      - .:/code  # Kök qovluğu /code qovluğuna bağlayır
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0  # Sonuç backend ayarı ekleyin
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
